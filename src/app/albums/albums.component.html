@@ -1,0 +1,59 @@
+<div class="row content">
+    <div class="col-sm-12 d-flex justify-content-center">
+        <app-search (newAlbums)="onSearchAlbums($event)"></app-search>
+    </div>
+    <!-- AlbumDetails -->
+    <div class="col-sm-4 video">
+        <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)"></app-album-details>
+    </div>    
+    <!-- .video -->
+    <div class="col-sm-8 music">
+        <app-paginate (setPaginate)="paginate($event)"></app-paginate> 
+        <button type="button" class="btn btn-lg btn-danger">You are in an anonymous mode.</button>
+
+        <div *ngIf="albums" class="list-inline">
+            <!-- Pagination -->
+            <!-- let index permet de récupérer l'indice numérique de la liste -->
+            <div *ngFor="let album of albums; let index = index;">
+                <div [@selectAlbum]="selectedAlbum === album ? 'selected' : 'noSelected'" class="card card-selected my-2">
+                    <!-- permet d'afficher l'index -->
+                    <div class="card-header">
+                        {{ index + startIndex }}# <strong>{{ album.ref }}</strong>
+                        <input *ngIf="status === album.id; else pleaseBlock" class="btn btn-success btn-sm float-right" type="button" value="I'm playing! Thank you!">
+                        <ng-template #pleaseBlock>
+                            <input class="btn btn-warning btn-sm float-right" type="button" value="Please play meee!!!">
+                        </ng-template>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title text-info"><a routerLink="/album/{{album.id}}">{{ album.title }}</a></h5>
+                        <p class="card-text">Artist: {{ album.name }}</p>
+                        <p class="card-text">{{ album.description }}</p>
+                        
+                        <!-- condition vérifiez si il y a des tags présent dans un album si ce n'est pas le cas la directive ne crée pas l'élément HTML dans le Component -->
+                        <div class="my-2" *ngIf="album.tags">
+                            <a href="#"><span class="badge badge-info mx-1" *ngFor="let tag of album.tags">{{ tag }}</span></a>
+                        </div>
+                        <button type="button" class="btn btn-outline-dark m-2">En</button>
+                        <!-- permert de gérer un if plus complexe voir doc Angular -->
+                        <ng-template [ngIf]="album.like">
+                            <fa-icon class="mx-1 text-danger" [icon]="faHeart"></fa-icon>
+                            <small>{{ album.like }} </small>
+                        </ng-template>
+                        <ng-template [ngIf]="album.duration">
+                            <fa-icon class="mx-1 text-warning" [icon]="faClock"></fa-icon>
+                            <small>{{ toDate(album.duration)|date:'HH:mm:ss' }}</small>
+                        </ng-template>
+                        <button (click)="onSelect(album)" class="btn btn-dark float-right">Details</button>
+                    </div>
+                </div>
+            </div>
+            <!-- end *ngFor of card -->
+            <div *ngIf="albums.length < 1" class="mt-5 text-center">Sorry, no album for your search.</div>
+            <!-- .card -->
+            <!-- Pagination -->
+        </div>
+        <!-- .music -->
+    </div>
+
+</div>

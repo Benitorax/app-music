@@ -1,0 +1,52 @@
+<!-- AlbumDetails -->
+<div class="row">
+    <div class="col-sm-4 video my-2">
+        <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)"></app-album-details>
+    </div>    
+        
+    <div class="col-sm-8 music">
+
+        <div class="card card-selected my-2">
+            <!-- permet d'afficher l'index -->
+            <div class="card-header">
+                <strong>{{ album.ref }}</strong>
+                <input *ngIf="status === album.id; else pleaseBlock" class="btn btn-success btn-sm float-right" type="button" value="I'm playing! Thank you!">
+                <ng-template #pleaseBlock>
+                    <input class="btn btn-warning btn-sm float-right" type="button" value="Please play meee!!!">
+                </ng-template>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title text-info"><a routerLink="/album/{{album.id}}">{{ album.title }}</a></h5>
+                <p class="card-text">Artist: {{ album.name }}</p>
+                <p class="card-text">{{ album.description }}</p>
+                
+                <button type="button" class="btn btn-outline-dark my-2">En</button>
+                <!-- permert de gérer un if plus complexe voir doc Angular -->
+                <br/>
+                <ng-template [ngIf]="album.like">
+                    <fa-icon class="mx-1 text-danger" [icon]="faHeart"></fa-icon>
+                    <small>Like: {{ album.like }} </small>
+                </ng-template>
+                <br/>
+                <ng-template [ngIf]="album.duration">
+                    <fa-icon class="mx-1 text-warning" [icon]="faClock"></fa-icon>
+                    <small>Duration: {{ toDate(album.duration)|date:'HH:mm:ss' }}</small>
+                </ng-template>
+                <br/>
+                <button (click)="onSelect(album)" class="btn btn-dark my-2">Details</button>
+            
+                <!-- condition vérifiez si il y a des tags présent dans un album si ce n'est pas le cas la directive ne crée pas l'élément HTML dans le Component -->
+                <div *ngIf="album.tags">
+                    <a href="#"><span class="badge badge-info mx-1" *ngFor="let tag of album.tags">{{ tag }}</span></a>
+                </div>
+                
+                <div class="">
+                    <img *ngIf="album.url" class="img-fluid mx-auto d-block m-2" src="https://picsum.photos/200/150?image=5{{ album.id }}" alt="Group Music">
+                </div>
+            
+            </div>
+        </div>
+        <!-- card -->
+    </div>
+</div>

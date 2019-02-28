@@ -1,0 +1,19 @@
+<div *ngIf="showplayer" class="alert alert-primary" role="alert">
+    <div>
+        <span>Title: {{ album.title }}, Artist: {{ album.name }}</span>
+    </div>
+    <div class="progress">
+        <div 
+            class="progress-bar" 
+            role="progressbar" 
+            [style.width]="ratio/duration*100 + '%'" 
+            aria-valuenow="" 
+            aria-valuemin="0" 
+            aria-valuemax="100">
+        </div>
+    </div>
+    <div>
+        <span>{{ secToDate(ratio)|date:'mm:ss' }} / {{ minToDate(album.duration)|date:'mm:ss' }}</span>
+    </div>
+</div>
+<div>{{ songPlayed|json }}</div>
