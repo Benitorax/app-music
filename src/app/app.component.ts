@@ -29,7 +29,7 @@ export class AppComponent {
                 return date;
             })
         );
-        this.timer = this.pipeTimer.subscribe(
+        this.pipeTimer.subscribe(
             date => this.timer = date
         );
     }

@@ -26,8 +26,8 @@
                     </div>
 
                     <div class="card-body">
-                        <h5 class="card-title text-info"><a routerLink="/album/{{album.id}}">{{ album.title }}</a></h5>
-                        <p class="card-text">Artist: {{ album.name }}</p>
+                        <h5 class="card-title text-info"><a routerLink="/album/{{album.id}}">{{ album.title|titlecase }}</a></h5>
+                        <p class="card-text">Artist: {{ album.name|titlecase }}</p>
                         <p class="card-text">{{ album.description }}</p>
                         
                         <!-- condition vérifiez si il y a des tags présent dans un album si ce n'est pas le cas la directive ne crée pas l'élément HTML dans le Component -->

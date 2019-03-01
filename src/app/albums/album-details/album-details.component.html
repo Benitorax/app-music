@@ -1,7 +1,7 @@
 <div [@selectAlbum]="stateGrow ? 'selected' : 'noSelected'" *ngIf="album" class="card sticky-top mt-3">
     <img *ngIf="album.url" class="card-img-top" src="https://picsum.photos/200/150?image=5{{ album.id }}" alt="Group Music">
     <div class="card-body">
-        <h5 class="card-title text-info"><strong>{{ album.title }}</strong></h5>
+        <h5 class="card-title text-info"><strong>{{ album.title|titlecase }}</strong></h5>
         <p class="card-text">Name: {{ album.name }}
           <br/>Type: {{ album.ref }}
         </p>
@@ -10,6 +10,6 @@
     <ul class="list-group" *ngIf="songs">
         <h2 class="px-2">Playlist</h2>
         <li (click)="onClick(song)" [class.active]="song === isActive" 
-          *ngFor="let song of songs.list " class="list-group-item">{{song}}</li>
+          *ngFor="let song of songs.list " class="list-group-item">{{song|titlecase}}</li>
     </ul>
 </div>

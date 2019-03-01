@@ -1,6 +1,6 @@
 <div *ngIf="showplayer" class="alert alert-primary" role="alert">
     <div>
-        <span>Title: {{ album.title }}, Artist: {{ album.name }}</span>
+        <span>{{ songPlayed|titlecase }} - {{ album.name }} [{{ album.title|titlecase }}]</span>
     </div>
     <div class="progress">
         <div 
@@ -12,8 +12,8 @@
             aria-valuemax="100">
         </div>
     </div>
-    <div>
-        <span>{{ secToDate(ratio)|date:'mm:ss' }} / {{ minToDate(album.duration)|date:'mm:ss' }}</span>
+    <div class="row">
+        <span class="col-sm-6">{{ indexSong == 0 ? indexSong+1 : indexSong }} / {{ songs.list.length }}</span>
+        <span class="col-sm-6 text-right">{{ ratioTime|date:'mm:ss' }} / {{ toDate(album.duration)|date:'mm:ss' }}</span>
     </div>
 </div>
-<div>{{ songPlayed|json }}</div>

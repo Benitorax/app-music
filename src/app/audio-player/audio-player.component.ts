@@ -13,10 +13,12 @@ export class AudioPlayerComponent implements OnInit {
     album: Album; // propriété [album] liée 
     songs: List;
     ratio: number;
+    ratioTime: Date;
     showplayer;
     duration: number;
     progressDuration;
-    songPlayed;
+    songPlayed: string;
+    indexSong: number;
 
     constructor(private aS: AlbumService) { }
 
@@ -50,37 +52,42 @@ export class AudioPlayerComponent implements OnInit {
         const count: any = interval(1000).pipe(
             take(this.duration + 1)
         );
+
         this.progressDuration = count.subscribe(
             count => { 
                 this.ratio = count;
-
-                let timer = this.duration / this.songs.list.length;
-                let i = 0;
-
-                /*let myInterval = setInterval(
-                    () => {                        
-                        this.songPlayed = this.songs.list[i];
-                        i++;
-                        console.log(i, this.songPlayed)
-                    }    
-                , timer);*/
-                //clearInterval(myInterval);
-                /*let index = Math.floor(this.ratio / this.duration);
-                this.songPlayed = this.songs[index] ;
-                console.log(this.songPlayed, index)*/
+                
+                let date = new Date(0);
+                date.setMinutes(count);
+                date.setHours(-0.1);
+                this.ratioTime = date;
             }
         );
+
+        this.playSongs();
     }
 
-    minToDate(min) {
+    playSongs() {
+        let timer = Math.floor(this.duration / this.songs.list.length);
+        this.indexSong = 0;
+        this.songPlayed = this.songs.list[this.indexSong];
+
+        let myInterval = setInterval(()=>{
+            this.songPlayed = this.songs.list[this.indexSong];
+            this.indexSong++;
+        }, timer*1000);
+
+        setTimeout(() => {
+            clearInterval(myInterval);
+            //this.songPlayed = null;
+        }, this.duration*1000);
+    }
+
+    toDate(min) {
         let date = new Date(0);
         date.setSeconds(min);
-        return date;
-    }
+        date.setHours(-0.1);
 
-    secToDate(secondes) {
-        let date = new Date(0);
-        date.setSeconds(secondes*60);
         return date;
     }
 }
