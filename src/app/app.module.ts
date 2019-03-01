@@ -14,6 +14,7 @@ import { AlbumDescriptionComponent } from './album-description/album-description
 import { LoginComponent } from './login/login.component';
 import { PaginateComponent } from './albums/paginate/paginate.component';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
+import { MiniAudioPlayerComponent } from './albums/album-details/mini-audio-player/mini-audio-player.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AudioPlayerComponent } from './audio-player/audio-player.component';
     AlbumDescriptionComponent,
     LoginComponent,
     PaginateComponent,
-    AudioPlayerComponent
+    AudioPlayerComponent,
+    MiniAudioPlayerComponent
   ],
   imports: [
     BrowserModule,

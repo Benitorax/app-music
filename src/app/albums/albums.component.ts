@@ -70,7 +70,10 @@ export class AlbumsComponent implements OnInit {
 
     toDate(minutes) {
         let date = new Date(0);
-        date.setMinutes(minutes);
+        let hours = Math.floor(minutes/60);
+        minutes = minutes - hours*60
+        date.setHours(hours);
+        date.setMinutes(minutes)
         return date;
     }
 

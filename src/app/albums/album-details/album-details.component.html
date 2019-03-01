@@ -1,5 +1,6 @@
 <div [@selectAlbum]="stateGrow ? 'selected' : 'noSelected'" *ngIf="album" class="card sticky-top mt-3">
     <img *ngIf="album.url" class="card-img-top" src="https://picsum.photos/200/150?image=5{{ album.id }}" alt="Group Music">
+    <app-mini-audio-player (onPlay)="textButtonToPlay()" (onPlay)="selectSong($event)" [songPlayed]="songSelected"></app-mini-audio-player>
     <div class="card-body">
         <h5 class="card-title text-info"><strong>{{ album.title|titlecase }}</strong></h5>
         <p class="card-text">Name: {{ album.name }}

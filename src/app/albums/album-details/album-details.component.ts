@@ -43,6 +43,7 @@ export class AlbumDetailsComponent implements OnInit {
     isActive: string;
     stateGrow: boolean = false;
     textButtonPlayer: string;
+    songSelected;
     constructor(private albumService: AlbumService) { }
 
     ngOnInit() { 
@@ -56,13 +57,14 @@ export class AlbumDetailsComponent implements OnInit {
         // on vérifie que l'on a bien cliqué sur un album avant de rechercher dans la liste
         // des chansons.
         // console.log('ngOnchanges is executed');
-        this.textButtonPlayer = "Play";
+        //this.textButtonPlayer = "Play";
 
         if(this.album){
             // récupération de la liste des chansons
             this.songs = this.albumService.getAlbumList(this.album.id);
             if(this.songs) {
                 this.isActive = this.songs.list[0];
+                this.songSelected = this.songs.list[0];
             }
 
             this.stateGrow = false;
@@ -73,8 +75,17 @@ export class AlbumDetailsComponent implements OnInit {
         }
     }
 
+    textButtonToPlay() {
+        this.textButtonPlayer = "Play";
+    }
+
     onClick(song) {
         this.isActive = song;
+        this.songSelected = song;
+        this.textButtonToPlay();
+    }
+    selectSong($event) {
+        this.isActive = $event;
     }
 
     play(album: Album) {

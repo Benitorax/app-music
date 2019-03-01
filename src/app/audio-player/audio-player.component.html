@@ -14,6 +14,6 @@
     </div>
     <div class="row">
         <span class="col-sm-6">{{ indexSong == 0 ? indexSong+1 : indexSong }} / {{ songs.list.length }}</span>
-        <span class="col-sm-6 text-right">{{ ratioTime|date:'mm:ss' }} / {{ toDate(album.duration)|date:'mm:ss' }}</span>
+        <span class="col-sm-6 text-right">{{ ratioTime|date:'HH:mm:ss' }} / {{ toDate(album.duration)|date:'HH:mm:ss' }}</span>
     </div>
 </div>

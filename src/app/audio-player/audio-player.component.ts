@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Album, List } from '../album';
 import { AlbumService } from '../album.service';
 import { interval } from 'rxjs';
@@ -58,8 +58,7 @@ export class AudioPlayerComponent implements OnInit {
                 this.ratio = count;
                 
                 let date = new Date(0);
-                date.setMinutes(count);
-                date.setHours(-0.1);
+                date.setHours(count);
                 this.ratioTime = date;
             }
         );
@@ -83,11 +82,13 @@ export class AudioPlayerComponent implements OnInit {
         }, this.duration*1000);
     }
 
-    toDate(min) {
+    toDate(minutes) {
         let date = new Date(0);
-        date.setSeconds(min);
-        date.setHours(-0.1);
-
+        let hours = Math.floor(minutes/60);
+        minutes = minutes - hours*60;
+        date.setHours(hours);
+        date.setMinutes(minutes)
+        
         return date;
     }
 }

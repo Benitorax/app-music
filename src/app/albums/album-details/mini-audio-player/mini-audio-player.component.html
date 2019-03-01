@@ -1,0 +1,32 @@
+<div *ngIf="showplayer" class="alert alert-info" role="alert">
+    <small>
+        <div class="row">
+            <span class="col">
+                {{ songPlayed|titlecase }}<br/>
+            </span>
+            <span class="col text-right">
+                {{ indexSong <= 0 ? 1 : indexSong+1 }} / {{ songs.list.length }}
+            </span>
+            <div class="col-sm-12">
+                {{ album.name }} [{{ album.title }}]
+            </div>
+        </div>
+    </small>
+    <div class="progress">
+        <div 
+            class="progress-bar" 
+            role="progressbar" 
+            [style.width]="ratio/duration*100 + '%'" 
+            aria-valuenow="" 
+            aria-valuemin="0" 
+            aria-valuemax="100">
+        </div>
+    </div>
+    <div class="row">
+            <span class="col-sm-12 text-right">
+                <small>
+                    {{ ratioTime|date:'HH:mm:ss' }} / {{ toDate(duration)|date:'HH:mm:ss' }}
+                </small>
+            </span>
+    </div>
+</div>
