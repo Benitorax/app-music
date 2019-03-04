@@ -17,7 +17,7 @@ export class PaginateComponent implements OnInit {
     numberPages: number = 0; // number of pages
     currentPage: number;
     subscription: Subscription;
-
+    perPageElement;
 
     constructor(private aS: AlbumService) { 
         this.perPage = this.aS.paginateNumberPage();
@@ -35,13 +35,34 @@ export class PaginateComponent implements OnInit {
      * @param page 
      */
     init(page : number = 1) {
-        this.total = this.aS.count();
-        this.numberPages = Math.ceil(this.total / this.perPage);
-        this.currentPage = page;
-        this.pages = [];
-        for (let i = 1; i < this.numberPages + 1; i++) {
-            this.pages.push(i);
-        }
+        this.aS.count().subscribe(
+            count => {
+                this.total = count;
+                this.numberPages = Math.ceil(this.total / this.perPage);
+                this.currentPage = page;
+                this.pages = [];
+                for (let i = 1; i < this.numberPages + 1; i++) {
+                    this.pages.push(i);
+                }
+            }
+        );
+    }
+
+    // init(page : number = 1) {
+    //     // lorsqu'on a à disposition le nombre d'albums depuis la base de données :
+    //     this.aS.count().subscribe(count => {
+    //         this.perPage = this.perPageElement;
+    //         this.setParameters(count, page);
+    //         this.pages = [];
+            
+    //         for (let i = 1; i < this.numberPages + 1; i++) {
+    //             this.pages.push(i);
+    //         }
+    //     })    
+    // }
+
+    setParameters(count, page) {
+
     }
 
     selectedPage(page: number) {

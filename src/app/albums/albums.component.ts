@@ -9,6 +9,7 @@ import {
     animate,
     transition,
 } from '@angular/animations';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-albums',
@@ -37,7 +38,7 @@ import {
     ],
 })
 export class AlbumsComponent implements OnInit {
-    albums: Album[];
+    albums: Observable<Album[]>|Album[];
     faHeart = faHeart;
     faClock = faClock;
     selectedAlbum : Album;
@@ -47,10 +48,16 @@ export class AlbumsComponent implements OnInit {
     constructor(private albumService: AlbumService) {
         // contrôle de la méthode count
         // console.log(this.albumService.count)
+        // récupération des données depuis Firebase avec la méthode HttpClient
+        this.albumService.getAlbums().subscribe(
+            albums => this.albums = albums
+        )
     }
 
     ngOnInit() {
-        this.albums = this.albumService.paginate(0, this.albumService.paginateNumberPage());
+        //this.albums = this.albumService.paginate(0, this.albumService.paginateNumberPage());
+        this.albumService.paginate(0, this.albumService.paginateNumberPage())
+        .subscribe(albums => this.albums = albums);
         this.startIndex = 1
     }
 

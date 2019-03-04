@@ -4,6 +4,7 @@ import { FormsModule } from'@angular/forms';
 import { BrowserAnimationsModule } from'@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpClientModule } from'@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -37,6 +38,7 @@ import { MiniAudioPlayerComponent } from './albums/album-details/mini-audio-play
     //RouterModule.forRoot(albumsRoutes), // Plus besoin en utilisant AppRoutingModule
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

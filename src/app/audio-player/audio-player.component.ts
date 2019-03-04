@@ -78,6 +78,7 @@ export class AudioPlayerComponent implements OnInit {
 
         setTimeout(() => {
             clearInterval(myInterval);
+            this.showplayer = false;
             //this.songPlayed = null;
         }, this.duration*1000);
     }

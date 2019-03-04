@@ -3,6 +3,7 @@ import { ActivatedRoute } from'@angular/router';
 import { Album } from'../album'
 import { faHeart, faClock } from '@fortawesome/free-solid-svg-icons';
 import { AlbumService } from '../album.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-album-description',
@@ -10,7 +11,7 @@ import { AlbumService } from '../album.service';
   styleUrls: ['./album-description.component.scss']
 })
 export class AlbumDescriptionComponent implements OnInit {
-  album : Album;
+  album : Observable<Album>|Album;
   faHeart = faHeart;
   faClock = faClock;
   selectedAlbum : Album;
