@@ -51,14 +51,7 @@ export class AlbumDetailsComponent implements OnInit {
         this.textButtonPlayer = "Play";
     }
 
-    // dès que quelque chose "rentre" dans le component enfant via une propriété Input
-    // ou à l'initialisation du component (une fois) cette méthode est appelée
     ngOnChanges() {
-        // on vérifie que l'on a bien cliqué sur un album avant de rechercher dans la liste
-        // des chansons.
-        // console.log('ngOnchanges is executed');
-        //this.textButtonPlayer = "Play";
-
         if(this.album){
             // récupération de la liste des chansons
             this.songs = this.albumService.getAlbumList(this.album.id);
