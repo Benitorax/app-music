@@ -49,9 +49,9 @@ export class AlbumsComponent implements OnInit {
         // contrôle de la méthode count
         // console.log(this.albumService.count)
         // récupération des données depuis Firebase avec la méthode HttpClient
-        this.albumService.getAlbums().subscribe(
+        /*this.albumService.getAlbums().subscribe(
             albums => this.albums = albums
-        )
+        )*/
     }
 
     ngOnInit() {
@@ -71,7 +71,11 @@ export class AlbumsComponent implements OnInit {
     }
 
     paginate($event) {
-        this.albums = this.albumService.paginate($event.start, $event.end);
+        this.albumService
+            .paginate($event.start, $event.end)
+            .subscribe(albums => {
+                this.albums = albums
+            });
         this.startIndex = $event.start + 1;
     }
 

@@ -27,18 +27,19 @@ export class AudioPlayerComponent implements OnInit {
             album => { 
                 this.showplayer = true;
                 this.album = album;
-                this.songs = this.aS.getAlbumList(this.album.id);
-
-                if(album.status == 'on') {
-                    if(this.progressDuration) {
+                this.aS.getAlbumList(this.album.id).subscribe((albumList) => {
+                    this.songs = albumList;
+                    if(album.status == 'on') {
+                        if(this.progressDuration) {
+                            this.progressDuration.unsubscribe();
+                        }
+                        this.progress();
+                    } else if (album.status == 'off') {
                         this.progressDuration.unsubscribe();
+                        this.showplayer = false;
+                        this.ratio = 0;
                     }
-                    this.progress();
-                } else if (album.status == 'off') {
-                    this.progressDuration.unsubscribe();
-                    this.showplayer = false;
-                    this.ratio = 0;
-                }
+                });
             }
         )
     }

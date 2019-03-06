@@ -52,10 +52,6 @@ export class AlbumService {
                 this.albumsUrl +'/.json', httpOptions
             )
             .pipe(
-                // Préparation des données avec _.values pour avoir un format exploitable dans l'application => Array de values JSON
-                map(albums => {
-                    return _.values(albums)
-                }),
                 // Ordonnez les albums par ordre de durées décroissantes
                 map(albums => {
                     return albums.sort(
@@ -77,30 +73,16 @@ export class AlbumService {
             );
     }
 
-    // getAlbums() {
-    //     return this._albums.sort((a, b) => b.duration - a.duration );
-    //     //return this.albums;
-    // }
-
-    // getAlbum(id: string) {
-    //     return this._albums.find((elem) => elem.id === id);
-    // }
-
     getAlbumList(id: string) {
-        return this._albumLists.find((elem) => elem.id === id);
+        return this.http
+            .get<List>(this.albumListsUrl + `/${id}/.json`);
     }
 
     getAlbumLists(): Observable<List[]> {
         return this.http
-            .get<Album[]>(
+            .get<List[]>(
                 this.albumListsUrl +'/.json', httpOptions
-            )
-            .pipe(
-                // Préparation des données avec _.values pour avoir un format exploitable dans l'application => Array de values JSON
-                map(albumLists => {
-                    return _.values(albumLists)
-                }),
-            )
+            );
     }
 
     count():Observable<number>{
@@ -110,7 +92,6 @@ export class AlbumService {
             }),
         );
     }
-
 
     currentPage(page: number) {
         return this.sendCurrentNumberPage.next(page);

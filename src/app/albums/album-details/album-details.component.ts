@@ -54,17 +54,17 @@ export class AlbumDetailsComponent implements OnInit {
     ngOnChanges() {
         if(this.album){
             // récupération de la liste des chansons
-            this.songs = this.albumService.getAlbumList(this.album.id);
-            if(this.songs) {
+            this.albumService.getAlbumList(this.album.id).subscribe((albumList) => {
+                this.songs = albumList;
                 this.isActive = this.songs.list[0];
                 this.songSelected = this.songs.list[0];
-            }
+                
 
-            this.stateGrow = false;
-            let animation = setTimeout(() => {
-                this.stateGrow = true;
-                //clearInterval(animation);
-            }, 300);
+                this.stateGrow = false;
+                let animation = setTimeout(() => {
+                    this.stateGrow = true;
+                }, 300);
+            })
         }
     }
 

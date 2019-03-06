@@ -32,7 +32,6 @@ export class MiniAudioPlayerComponent implements OnInit {
         if(this.progressSubscription) {
             this.progressSubscription.unsubscribe();
         }
-        console.log(this.songPlayed);
         this.showplayer = false;
         this.ratio = 0;
         this.play();
@@ -46,18 +45,20 @@ export class MiniAudioPlayerComponent implements OnInit {
             album => { 
                 this.showplayer = true;
                 this.album = album;
-                this.songs = this.aS.getAlbumList(album.id);
+                this.aS.getAlbumList(album.id).subscribe((albumList) => {
+                    this.songs = albumList;
 
-                if(album.status == 'on') {
-                    if(this.progressSubscription) {
+                    if(album.status == 'on') {
+                        if(this.progressSubscription) {
+                            this.progressSubscription.unsubscribe();
+                        }
+                        this.progress(this.songPlayed);
+                    } else if (album.status == 'off') {
                         this.progressSubscription.unsubscribe();
+                        this.showplayer = false;
+                        this.ratio = 0;
                     }
-                    this.progress(this.songPlayed);
-                } else if (album.status == 'off') {
-                    this.progressSubscription.unsubscribe();
-                    this.showplayer = false;
-                    this.ratio = 0;
-                }
+                });
             }
         )
     }
@@ -104,11 +105,11 @@ export class MiniAudioPlayerComponent implements OnInit {
         this.onFinish.emit(); 
     }
 
-    toDate(minutes) {
+    toDate(minutes): Date {
         let date = new Date(0);
-        let hours = Math.floor(minutes/60);
-        minutes = minutes - hours*60
-        date.setHours(hours);
+        //let hours = Math.floor(minutes/60);
+        //minutes = minutes - hours*60
+        date.setHours(-0.1);
         date.setMinutes(minutes)
         
         return date;

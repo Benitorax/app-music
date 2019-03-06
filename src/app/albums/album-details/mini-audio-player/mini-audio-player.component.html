@@ -1,6 +1,6 @@
 <div *ngIf="showplayer" class="alert alert-info" role="alert">
     <small>
-        <div class="row">
+        <div *ngIf="songs" class="row">
             <span class="col">
                 {{ songPlayed|titlecase }}<br/>
             </span>
@@ -22,11 +22,11 @@
             aria-valuemax="100">
         </div>
     </div>
-    <div class="row">
-            <span class="col-sm-12 text-right">
-                <small>
-                    {{ ratioTime|date:'HH:mm:ss' }} / {{ toDate(duration)|date:'HH:mm:ss' }}
-                </small>
-            </span>
+    <div *ngIf="duration" class="row">
+        <span class="col-sm-12 text-right">
+            <small>
+                {{ ratioTime|date:'HH:mm:ss' }} / {{ toDate(duration)|date:'HH:mm:ss' }}
+            </small>
+        </span>
     </div>
 </div>
