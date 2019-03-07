@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlbumsComponent } from './albums/albums.component';
 import { LoginComponent } from './login/login.component';
 import { AlbumDescriptionComponent } from './album-description/album-description.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { GuardService } from './guard.service'
 
 const routes: Routes = [
   {
@@ -21,6 +23,10 @@ const routes: Routes = [
   {
     path:'album/:id',
     component: AlbumDescriptionComponent
+  },
+  {
+    path:'dashboard', canActivate: [GuardService],
+    component: DashboardComponent
   },
 ];
 

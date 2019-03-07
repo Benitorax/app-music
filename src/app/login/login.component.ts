@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { NgForm } from'@angular/forms'; // template-driven
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -6,10 +9,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+    helpError;
+    
+    constructor(
+        private auth: AuthService,
+        private router: Router
+    ) { }
 
-  constructor() { }
+    ngOnInit() {
+    }
 
-  ngOnInit() {
-  }
+    onSubmit(loginForm: NgForm): void {
+        if(!loginForm.value['rememberMe']) {
+            this.auth.noActivateRememberMe();
+            console.log('not remember be !');
+        } else {
+            this.auth.activateRememberMe();
+            console.log('remember be !');
+        }
 
+        let promise = this.auth
+        .auth(loginForm.value['email'], loginForm.value['password'])
+        .then(
+            user => { 
+                this.router.navigate(['dashboard']);
+            },
+            error => {
+                this.helpError = `error: ${error.code} ${error.message}`;
+                console.log(this.helpError);
+            }
+        );
+    }
 }

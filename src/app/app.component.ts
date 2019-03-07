@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { interval, Observable, observable } from'rxjs';
 import { map, filter, take } from 'rxjs/operators';
-
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,8 +14,24 @@ export class AppComponent {
     title = 'app-music';
     pipeTimer;
     timer: Date;
+    authState: boolean;
 
-    constructor() {
+    constructor(
+        private aS: AuthService,
+        private router: Router
+    ) {
+        this.aS.stateEmitter.subscribe(user =>{
+            if(user){
+                this.authState = true;
+                console.log('authState true');
+                //this.router.navigate(['albums']);
+            } else {
+                this.authState = false;
+                console.log('authState false');
+                this.router.navigate(['login']);
+            }
+        });
+
     }
     
     ngOnInit() {
@@ -33,4 +50,10 @@ export class AppComponent {
             date => this.timer = date
         );
     }
+
+    logout() {
+        this.aS.logout();
+    }
+
+
 }
