@@ -13,21 +13,23 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li *ngIf="authState === false" class="nav-item">
+                <li *ngIf="authState === false; else elseAuth" class="nav-item">
                     <a class="nav-link" routerLink="/login" routerLinkActive="active">Se connecter
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                <ng-template #elseAuth>
                 <li *ngIf="authState === true" class="nav-item">
                     <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li *ngIf="authState === true" class="nav-item">
-                    <a class="nav-link" (click)="logout()">Log out
+                    <a class="nav-link" (click)="aS.logout()">Log out
                         <span class="sr-only">(current)</span>
                     </a>
-                </li>            
+                </li>
+                </ng-template>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

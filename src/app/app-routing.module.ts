@@ -5,7 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { AlbumDescriptionComponent } from './album-description/album-description.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GuardService } from './guard.service'
-
+import { AdminRootingModule } from './admin/admin-rooting.module'
 const routes: Routes = [
   {
     path:'albums',
@@ -13,9 +13,14 @@ const routes: Routes = [
   },
   {
     path:'',
-    redirectTo:'/albums',
+    redirectTo:'/admin',
     pathMatch:'full'
   },
+  /*{
+    path:'',
+    redirectTo:'/albums',
+    pathMatch:'full'
+  },*/
   {
     path:'login',
     component: LoginComponent

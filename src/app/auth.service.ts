@@ -9,7 +9,7 @@ import { observable, Subject } from 'rxjs';
 })
 export class AuthService {
     private authState: boolean = false;
-    stateEmitter = new Subject();
+    subjectAuthState = new Subject();
     helpError: string;
 
     constructor(private router: Router) { 
@@ -17,10 +17,10 @@ export class AuthService {
         (user) => {
             if (user) {
             this.authState = true;
-            this.stateEmitter.next(this.authState);
+            this.subjectAuthState.next(this.authState);
             } else {
             this.authState = null;
-            this.stateEmitter.next(this.authState);
+            this.subjectAuthState.next(this.authState);
             }
         }
         );

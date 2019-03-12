@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./album-description.component.scss']
 })
 export class AlbumDescriptionComponent implements OnInit {
-  album : Observable<Album>|Album;
+  album : Album;
   faHeart = faHeart;
   faClock = faClock;
   selectedAlbum : Album;

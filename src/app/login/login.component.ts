@@ -14,9 +14,15 @@ export class LoginComponent implements OnInit {
     constructor(
         private auth: AuthService,
         private router: Router
-    ) { }
+    ) { 
+    }
 
     ngOnInit() {
+        this.auth.subjectAuthState.subscribe(user =>{
+            if(user){
+                this.router.navigate(['admin']);
+            } 
+        });
     }
 
     onSubmit(loginForm: NgForm): void {
@@ -32,7 +38,7 @@ export class LoginComponent implements OnInit {
         .auth(loginForm.value['email'], loginForm.value['password'])
         .then(
             user => { 
-                this.router.navigate(['dashboard']);
+                this.router.navigate(['admin']);
             },
             error => {
                 this.helpError = `error: ${error.code} ${error.message}`;

@@ -20,7 +20,7 @@ export class AppComponent {
         private aS: AuthService,
         private router: Router
     ) {
-        this.aS.stateEmitter.subscribe(user =>{
+        this.aS.subjectAuthState.subscribe(user =>{
             if(user){
                 this.authState = true;
                 console.log('authState true');
@@ -49,10 +49,6 @@ export class AppComponent {
         this.pipeTimer.subscribe(
             date => this.timer = date
         );
-    }
-
-    logout() {
-        this.aS.logout();
     }
 
 

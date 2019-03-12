@@ -1,0 +1,120 @@
+<form [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="ref">Ref :</label>
+        <input
+            formControlName="ref" 
+            type="text" 
+            class="form-control"
+            id="ref" 
+            aria-describedby="emailHelp" 
+            placeholder="Enter ref">
+        <div 
+            *ngIf="ref.invalid && ref.touched" 
+            class="alert alert-danger">
+            <div *ngIf="ref.errors.required">Ref is required</div>
+            <div *ngIf="ref.errors.minlength">Ref must be at least 3 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name">Name :</label>
+        <input
+            formControlName="name" 
+            type="text" 
+            class="form-control"
+            id="name" 
+            aria-describedby="emailHelp" 
+            placeholder="Enter artist name">
+        <div 
+            *ngIf="name.invalid && name.touched" 
+            class="alert alert-danger">
+            <div *ngIf="name.errors.required">Name is required</div>
+            <div *ngIf="name.errors.minlength">Name must be at least 3 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group col-md-8">
+        <label for="image">File input</label>
+        <input (change)="onSelectedImage($event)" type="file" class="btn" id="image">
+    </div>        
+    <div class="form-group">
+        <label for="title">Title :</label>
+        <input
+            formControlName="title" 
+            type="text" 
+            class="form-control"
+            id="title" 
+            aria-describedby="emailHelp" 
+            placeholder="Enter album title">
+        <div 
+            *ngIf="title.invalid && title.touched" 
+            class="alert alert-danger">
+            <div *ngIf="title.errors.required">Title is required</div>
+            <div *ngIf="title.errors.minlength">Title must be at least 3 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="description">Description :</label>
+        <input
+            formControlName="description" 
+            type="text" 
+            class="form-control"
+            id="description" 
+            aria-describedby="emailHelp" 
+            placeholder="Enter artist description">
+        <div 
+            *ngIf="description.invalid && description.touched" 
+            class="alert alert-danger">
+            <div *ngIf="description.errors.required">Description is required</div>
+            <div *ngIf="description.errors.minlength">Description must be at least 3 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="duration">Duration (min):</label>
+        <input
+            formControlName="duration" 
+            type="text" 
+            class="form-control"
+            id="duration" 
+            aria-describedby="emailHelp" 
+            placeholder="Enter artist duration">
+        <div 
+            *ngIf="duration.invalid && duration.touched" 
+            class="alert alert-danger">
+            <div *ngIf="duration.errors.required">Duration is required</div>
+            <div *ngIf="duration.errors.min">Duration must be at least 100min long.</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="tags">Tags :</label>
+        <input
+            formControlName="tags" 
+            type="text" 
+            class="form-control"
+            id="tags" 
+            aria-describedby="emailHelp" 
+            placeholder="Enter tag">
+        <div 
+            *ngIf="tags.invalid && tags.touched" 
+            class="alert alert-danger">
+            <div *ngIf="tags.errors.required">Tag is required</div>
+            <div *ngIf="tags.errors.minlength">Tag must be at least 3 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="like">Like :</label>
+        <input
+            formControlName="like" 
+            type="text" 
+            class="form-control"
+            id="like" 
+            aria-describedby="emailHelp" 
+            placeholder="Enter artist like">
+        <div 
+            *ngIf="like.invalid && like.touched" 
+            class="alert alert-danger">
+            <div *ngIf="like.errors.required">Like is required</div>
+            <div *ngIf="like.errors.minlength">Like must be at least 3 characters long.</div>
+        </div>
+    </div>
+    <button [disabled]="!albumForm.valid" type="submit" class="btn btn-primary">Add album</button>
+</form>
+<p>{{ albumForm.status }}</p>

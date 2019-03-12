@@ -1,3 +1,5 @@
+import { NgModule } from '@angular/core';
+import { ShareModule } from'../share/share.module';
 import { Component, OnInit } from '@angular/core';
 import { Album } from'../album';
 import { faHeart, faClock } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +13,11 @@ import {
 } from '@angular/animations';
 import { Observable } from 'rxjs';
 
+@NgModule({
+  imports: [
+    ShareModule,
+  ],
+})
 @Component({
     selector: 'app-albums',
     templateUrl: './albums.component.html',

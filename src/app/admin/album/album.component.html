@@ -1,0 +1,46 @@
+<h3>
+  album template inside Admin
+</h3>
+<p>
+    <button routerLink="album/add" routerLinkActive="active" type="button" class="btn btn-primary">Add album</button>
+</p>
+<p>
+    <button class="btn btn-dark">Nombre d'album(s) : {{ count | async }}</button>
+</p>      
+<app-paginate (setPaginate)="paginate($event)"></app-paginate>
+<table class="table table-dark">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Image</th>
+        <th scope="col">update</th>
+        <th scope="col">Artist</th>
+        <th scope="col">Title</th>
+        <th scope="col">Duration</th>
+        <th scope="col">delete</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="albums">
+        <tr *ngFor="let album of albums; let index = index;">
+        <th scope="row">{{ index + startIndex }}</th>
+        <td><img style="width: 50px;"src="{{album.url}}"></td>
+        <td>
+            <button routerLink="album/update/{{album.id}}" type="button" class="btn btn-secondary">udpate</button>
+        </td>    
+        <td>{{album.name}}</td>
+        <td>{{album.title}}</td>
+        <td>{{ toDate(album.duration)|date:'HH:mm:ss' }}</td>
+        <td>
+            <button (click)="destroy(album.id)" class="btn btn-danger">Delete with modal</button>
+            <!--<button routerLink="album/delete/{{album.id}}/deleted" class="btn btn-danger">Delete</button>-->
+        </td>
+        </tr>
+    </tbody>
+    </table>
+<app-paginate (setPaginate)="paginate($event)"></app-paginate>
+
+<app-modal-dialog [showModal]="showModal" >
+    <h2>Voulez-vous vraiment supprimer cet album ?</h2>
+    <button class="btn"  (click)="no()">Non</button>
+    <button class="btn btn-danger" (click)="yes()">Oui</button>
+</app-modal-dialog>
