@@ -25,7 +25,8 @@ import { AdminMainComponent } from './admin/admin-main/admin-main.component';
 
 // Initialize Firebase
 var config = {
-//...
+
+  //*** */
 };
 firebase.initializeApp(config);
 

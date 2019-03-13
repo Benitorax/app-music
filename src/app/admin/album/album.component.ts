@@ -27,7 +27,7 @@ export class AlbumComponent implements OnInit {
         this.aS.paginate(0, this.aS.paginateNumberPage())
         .subscribe(albums => {
             this.albums = albums;
-            this.count = albums.length;
+            this.count = this.aS.count();
             //console.log('albums from AlbumComponent', albums);
         });
         this.startIndex = 1;

@@ -21,28 +21,15 @@ export class AlbumService {
     // convention dans l'API ajoutez votre identifant de base de données
     private albumsUrl ='https://app-music-2204d.firebaseio.com/albums';
     private albumListsUrl ='https://app-music-2204d.firebaseio.com/albumLists';
-    private _albums: Album[];// = ALBUMS;
-    private _albumLists: List[];// = ALBUM_LISTS;
     private _currentPage;
     // subject pour la pagination informer les autres components
     sendCurrentNumberPage = new Subject<number>();
     subjectAlbum = new Subject<Album>();
 
     constructor(private http: HttpClient) {
-        this.getAlbums().subscribe(
-            albums => {
-                this._albums = albums;
-            }
-        );
-        this.getAlbumLists().subscribe(
-            albumLists => {
-                this._albumLists = albumLists;
-            }
-        );
     }
 
     paginate(start, end) {
-        //return this._albums.slice(start, end);  
         return this.getAlbums().pipe(
             map(albums => albums.slice(start, end))
         );
@@ -136,7 +123,7 @@ export class AlbumService {
                     return newA;
                 }),
                 // Ordonnez les albums par ordre de durées décroissantes
-                /*map(albums => {
+                /*map(albums => { // this map function override id
                     let Albums: Album[] = [];
                     _.forEach(albums, (v, k) => {
                         v.id = k;
@@ -209,7 +196,6 @@ export class AlbumService {
 
     switchOff(album) {
         album.status = "off";
-        //this.subjectAlbum.next(album);
         this.http
         .put<void>(this.albumsUrl +`/${album.id}/.json`, album)
         .subscribe(
@@ -246,20 +232,21 @@ export class AlbumService {
         words.forEach((w) => {
         if(w.length > 0) {
             let regex = new RegExp(w, 'i');
-
-            this._albums.forEach((album) => {
-            for (let elem in album) {
-                if(album[elem].toString().search(regex) > -1 && elem !== 'id') 
-                {
-                    if(results.indexOf(album) == -1) 
-                    {
-                        results.push(album);
-                    }
-                    break;
-                }
+            this.getAlbums().subscribe(albums => {
+                albums.forEach((album) => {
+                    for (let elem in album) {
+                        if(album[elem].toString().search(regex) > -1 && elem !== 'id') 
+                        {
+                            if(results.indexOf(album) == -1) 
+                            {
+                                results.push(album);
+                            }
+                            break;
+                            }
+                        }
+                    })
+                });
             }
-            })
-        }
         })
 
         return results;
