@@ -5,7 +5,7 @@
     <button routerLink="album/add" routerLinkActive="active" type="button" class="btn btn-primary">Add album</button>
 </p>
 <p>
-    <button class="btn btn-dark">Nombre d'album(s) : {{ count | async }}</button>
+    <button class="btn btn-dark">Nombre d'album(s) : {{ count }}</button>
 </p>      
 <app-paginate (setPaginate)="paginate($event)"></app-paginate>
 <table class="table table-dark">
@@ -22,7 +22,7 @@
     </thead>
     <tbody *ngIf="albums">
         <tr *ngFor="let album of albums; let index = index;">
-        <th scope="row">{{ index + startIndex }}</th>
+        <th scope="row">{{ index + startIndex }}||{{album|json}}</th>
         <td><img style="width: 50px;"src="{{album.url}}"></td>
         <td>
             <button routerLink="album/update/{{album.id}}" type="button" class="btn btn-secondary">udpate</button>

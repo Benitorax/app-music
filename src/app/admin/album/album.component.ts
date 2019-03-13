@@ -25,8 +25,11 @@ export class AlbumComponent implements OnInit {
 
     ngOnInit() {
         this.aS.paginate(0, this.aS.paginateNumberPage())
-        .subscribe(albums => this.albums = albums);
-        this.count = this.aS.count();
+        .subscribe(albums => {
+            this.albums = albums;
+            this.count = albums.length;
+            //console.log('albums from AlbumComponent', albums);
+        });
         this.startIndex = 1;
     }
 

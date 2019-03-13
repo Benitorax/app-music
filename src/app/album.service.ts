@@ -50,9 +50,9 @@ export class AlbumService {
 
     deleteAlbum(id): Observable<Object>{
         const url = `${this.albumsUrl}/${id}/.json`;
-        console.log(url);
-        let album;
+        console.log('Album Url to delete', url);
         this.getAlbum(id).subscribe( a => {
+            console.log('album to delete', a);
             this.deleteAlbumImage(a);
         })
         
@@ -66,13 +66,14 @@ export class AlbumService {
     }
 
     deleteAlbumImage(a) {
-        if (a.url) {
+        if (a.url && a.url != null) {
+            console.log('urlImage to delete', a.url);
             let imageFile;
             imageFile = a.url.substring(
-                a.url.lastIndexOf("%2F") + 3, 
+                a.url.lastIndexOf("images%2F") + 9, 
                 a.url.lastIndexOf("?")
             );
-            console.log("Before deleting image");
+            console.log("Before deleting image from firebase with nameFile", imageFile);
             return firebase.storage().ref('images/'+imageFile).delete();
         }
     }
@@ -94,11 +95,12 @@ export class AlbumService {
 
     addAlbum(album: Album): Observable<any> {
         let id = album.id;
-        
+        console.log('function addAlbum called');
         return this.http.put<void>(`${this.albumsUrl}/${id}.json`, album);
     }
 
     getIncrementId() {
+        console.log('function getIncrementId called');
         let a = firebase.database().ref('albums').orderByKey().limitToLast(1).once('value', (snapshot) => {
             console.log(Object.keys(snapshot.val())[0])
         });
@@ -114,6 +116,7 @@ export class AlbumService {
 
     updateAlbum(ref, album: Album): Observable<void> {
         console.log(ref);
+        console.log('function updateAlbum called');
         return this.http.put<void>(this.albumsUrl + `/${ref}/.json`, album);
     }
 
@@ -133,14 +136,14 @@ export class AlbumService {
                     return newA;
                 }),
                 // Ordonnez les albums par ordre de durées décroissantes
-                map(albums => {
+                /*map(albums => {
                     let Albums: Album[] = [];
                     _.forEach(albums, (v, k) => {
                         v.id = k;
                         Albums.push(v);
                     });
                     return Albums;
-                }),
+                }),*/
                 map(albums => {
                     return albums.sort(
                         (a, b) => { 

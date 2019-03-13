@@ -18,14 +18,10 @@ import { AlbumDetailsComponent } from './albums/album-details/album-details.comp
 import { SearchComponent } from './albums/search/search.component';
 import { AlbumDescriptionComponent } from './album-description/album-description.component';
 import { LoginComponent } from './login/login.component';
-//import { PaginateComponent } from './albums/paginate/paginate.component';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
 import { MiniAudioPlayerComponent } from './albums/album-details/mini-audio-player/mini-audio-player.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminMainComponent } from './admin/admin-main/admin-main.component';
-//import { ModalDialogComponent } from './admin/modal-dialog/modal-dialog.component';
-//import { DeleteAlbumComponent } from './admin/delete-album/delete-album.component';
-//import { UpdateAlbumComponent } from './admin/update-album/update-album.component';
 
 // Initialize Firebase
 var config = {
@@ -42,14 +38,10 @@ firebase.initializeApp(config);
     SearchComponent,
     AlbumDescriptionComponent,
     LoginComponent,
-    //PaginateComponent,
     AudioPlayerComponent,
     MiniAudioPlayerComponent,
     DashboardComponent,
     AdminMainComponent,
-    //ModalDialogComponent,
-    //DeleteAlbumComponent,
-    //UpdateAlbumComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +49,6 @@ firebase.initializeApp(config);
     FontAwesomeModule,
     FormsModule,
     //RouterModule.forRoot(albumsRoutes), // Plus besoin en utilisant AppRoutingModule
-    AppRoutingModule,
     AdminRootingModule,
     BrowserAnimationsModule,
     HttpClientModule,
